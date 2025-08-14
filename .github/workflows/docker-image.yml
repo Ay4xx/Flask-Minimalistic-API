@@ -12,7 +12,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE: ghcr.io/Ay4xx/tec-actions-test
+  IMAGE: ghcr.io/ay4xx/tec-actions-test
 
 jobs:
 
@@ -34,6 +34,16 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push (tag=latest)
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: ${{ env.IMAGE }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
 
 
 
